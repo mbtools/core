@@ -54,7 +54,7 @@ export function genCreateComponent(
   const inlineHandlers: CodeFragment[] = handlers.reduce<CodeFragment[]>(
     (acc, { name, value }) => {
       // TODO should support .once modifier on component event
-      const handler = genEventHandler(context, value, undefined,false)
+      const handler = genEventHandler(context, value, undefined, false)
       return [...acc, `const ${name} = `, ...handler, NEWLINE]
     },
     [],
@@ -94,10 +94,7 @@ export function genCreateComponent(
   }
 }
 
-function getUniqueHandlerName(
-  context: CodegenContext,
-  name: string
-): string {
+function getUniqueHandlerName(context: CodegenContext, name: string): string {
   const { seenInlineHandlerNames } = context
   const count = seenInlineHandlerNames[name] || 0
   seenInlineHandlerNames[name] = count + 1
